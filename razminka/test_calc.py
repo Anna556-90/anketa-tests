@@ -1,0 +1,32 @@
+import pytest
+from calc import summa, skidka, srednee
+
+# Задача Р1
+def test_summa_polozhitelnye():
+    assert summa(2, 3) == 5
+def test_summa_s_nulem():
+    assert summa(0, 7) == 7
+
+# Задача Р2
+def test_skidka_10_procentov():
+    # 1000 - 10% = 900.0
+    assert skidka(1000, 10) == 900.0
+
+# Задача Р3
+def test_skidka_slishkom_bolshaya():
+    with pytest.raises(ValueError):
+        skidka(1000, 95)
+
+def test_srednee_pustoy_spisok():
+    with pytest.raises(ValueError):
+        srednee([])
+
+# Задача Р4
+@pytest.mark.parametrize("vvod, ozhidaem", [
+    ([5], 5),
+    ([2, 4], 3),
+    ([1, 2, 3, 4], 2.5),
+    ([-2, 2], 0)
+])
+def test_srednee_parametrizaciya(vvod, ozhidaem):
+    assert srednee(vvod) == ozhidaem
